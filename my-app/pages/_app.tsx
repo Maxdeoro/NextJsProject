@@ -1,7 +1,9 @@
-import '../styles/globals.css'
+import { AppProps } from 'next/dist/shared/lib/router/router';
+import '../styles/globals.css';
+import { JSX } from 'react';
 
-function MyApp({ Component, pageProps }) {
+function MyApp({ Component, pageProps }: AppProps): JSX.Element {
   return <Component {...pageProps} />
 }
 
-export default MyApp
+export default MyApp;
