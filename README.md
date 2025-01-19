@@ -1,1 +1,1 @@
-Web application on Next.js with custom routing. Use node.js 18.18.0 .
+Web application on Next.js with custom routing. Use Node 18.20.5 .
