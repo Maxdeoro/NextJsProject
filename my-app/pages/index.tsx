@@ -2,6 +2,7 @@ import { JSX } from 'react';
 import { Htag } from '../components/htag/Htag';
 import { Button } from '../components/button/Button';
 import { Paragraf } from '../components/para/Para';
+import { Tag } from '../components/tag/Tag';
 
 export default function Home(): JSX.Element {
   return (
@@ -26,6 +27,12 @@ export default function Home(): JSX.Element {
       <Paragraf>Lorem ipsum dolor sit amet, consectetur adipiscing elit, 
         sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
       </Paragraf>
+      <Tag color='grey' size='medium'>15</Tag>
+      <Tag color='green' size='small'>Hello!</Tag>
+      <Tag color='ghost' size='medium'>How are you?</Tag>
+      <Tag color='red' size='medium'>MySite</Tag>
+      <Tag color='primary' size='small'>consectetur adipiscing elit,</Tag>
+
     </div>
   )
 };
