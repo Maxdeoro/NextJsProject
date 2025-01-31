@@ -1,17 +1,23 @@
-import { JSX } from 'react';
+import { JSX, useState } from 'react';
 import { Htag } from '../components/htag/Htag';
 import { Button } from '../components/button/Button';
 import { Paragraf } from '../components/para/Para';
 import { Tag } from '../components/tag/Tag';
 
 export default function Home(): JSX.Element {
+
+  const [counter, setCounter] = useState<number>(0);
+
   return (
     <div>
-      <Htag tag='h1'>Text h1</Htag>
+      <Htag tag='h1'>{counter}</Htag>
+      {/* <Htag tag='h1'>Text h1</Htag> */}
       <Htag tag='h2'>Text h2</Htag>
       <Htag tag='h3'>Text h3</Htag>
-      <Button appearance='primary' className='myClass'>BTN text</Button>
-      <Button appearance='ghost' arrow='down'>BTN text</Button>
+      <Button appearance='primary' className='myClass' onClick={() => setCounter(x => x + 1)}>Counter</Button>
+      {/* <Button appearance='primary' className='myClass'>BTN text</Button> */}
+      <Button appearance='ghost' arrow='down' onClick={() => setCounter(x => x / 2)}>Counter2</Button>
+      {/* <Button appearance='ghost' arrow='down'>BTN text</Button> */}
       <Paragraf fontSize='large'>Lorem ipsum dolor sit amet, consectetur adipiscing elit, 
         sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad 
         minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea 
