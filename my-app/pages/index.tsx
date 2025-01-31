@@ -1,4 +1,4 @@
-import { JSX, useState } from 'react';
+import { JSX, useEffect, useState } from 'react';
 import { Htag } from '../components/htag/Htag';
 import { Button } from '../components/button/Button';
 import { Paragraf } from '../components/para/Para';
@@ -7,6 +7,20 @@ import { Tag } from '../components/tag/Tag';
 export default function Home(): JSX.Element {
 
   const [counter, setCounter] = useState<number>(0);
+
+  useEffect(() => {
+    console.log('counter ' + counter);
+    return function cleanup() {
+      console.log('Unmount');
+    }
+  });
+
+  // useEffect(() => {
+  //   console.log('counter ' + counter);
+  //   return function cleanup() {
+  //     console.log('Unmount');
+  //   }
+  // }, []);
 
   return (
     <div>
