@@ -1,8 +1,9 @@
-import { JSX } from 'react';
+import { JSX, useEffect, useState } from 'react';
 import { Htag } from '../components/htag/Htag';
 import { Button } from '../components/button/Button';
 import { Paragraf } from '../components/para/Para';
 import { Tag } from '../components/tag/Tag';
+import { Rating } from '../components';
 
 export default function Home(): JSX.Element {
   return (
@@ -32,6 +33,7 @@ export default function Home(): JSX.Element {
       <Tag color='ghost' size='medium'>How are you?</Tag>
       <Tag color='red' size='medium'>MySite</Tag>
       <Tag color='primary' size='small'>consectetur adipiscing elit,</Tag>
+      <Rating rating={4}/>
 
     </div>
   )
