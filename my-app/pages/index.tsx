@@ -6,6 +6,9 @@ import { Tag } from '../components/tag/Tag';
 import { Rating } from '../components';
 
 export default function Home(): JSX.Element {
+
+  const [rating, setRating] = useState<number>(4);
+
   return (
     <div>
       <Htag tag='h1'>Text h1</Htag>
@@ -33,7 +36,7 @@ export default function Home(): JSX.Element {
       <Tag color='ghost' size='medium'>How are you?</Tag>
       <Tag color='red' size='medium'>MySite</Tag>
       <Tag color='primary' size='small'>consectetur adipiscing elit,</Tag>
-      <Rating rating={4} isEditable/>
+      <Rating rating={rating} isEditable setRating={setRating}/>
 
     </div>
   )
