@@ -33,7 +33,7 @@ export default function Home(): JSX.Element {
       <Tag color='ghost' size='medium'>How are you?</Tag>
       <Tag color='red' size='medium'>MySite</Tag>
       <Tag color='primary' size='small'>consectetur adipiscing elit,</Tag>
-      <Rating rating={4}/>
+      <Rating rating={4} isEditable/>
 
     </div>
   )

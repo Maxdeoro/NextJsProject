@@ -4,5 +4,8 @@
 
 .star {
     margin-right: 5px;
+}
+
+.editable {
     cursor: pointer;
 }
