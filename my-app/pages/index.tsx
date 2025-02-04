@@ -4,13 +4,14 @@ import { Button } from '../components/button/Button';
 import { Paragraf } from '../components/para/Para';
 import { Tag } from '../components/tag/Tag';
 import { Rating } from '../components';
+import { Layout } from '../layout/Layout';
 
 export default function Home(): JSX.Element {
 
   const [rating, setRating] = useState<number>(4);
 
   return (
-    <div>
+    <Layout>
       <Htag tag='h1'>Text h1</Htag>
       <Htag tag='h2'>Text h2</Htag>
       <Htag tag='h3'>Text h3</Htag>
@@ -38,7 +39,7 @@ export default function Home(): JSX.Element {
       <Tag color='primary' size='small'>consectetur adipiscing elit,</Tag>
       <Rating rating={rating} isEditable setRating={setRating}/>
 
-    </div>
+    </Layout>
   )
 };
 
