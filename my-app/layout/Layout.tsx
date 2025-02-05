@@ -1,10 +1,10 @@
-import { JSX } from "react";
+import { FC, JSX } from "react";
 import { LayoutProps } from "./Layout.props";
 import { Sidebar } from "./sidebar/Sidebar";
 import { Header } from './header/Header';
 import { Footer } from "./footer/Footer";
 
-export const Layout = ({children}: LayoutProps): JSX.Element => {
+const Layout = ({children}: LayoutProps): JSX.Element => {
     return (
         <>
             <Header/>
@@ -15,4 +15,14 @@ export const Layout = ({children}: LayoutProps): JSX.Element => {
             <Footer/>
         </>
     );
+};
+
+export const withLayout = <T extends Record<string, unknown>>(Component: FC<T>) => {
+    return function withLayoutComponent(props: T): JSX.Element {
+        return (
+            <Layout>
+                <Component {...props}/>
+            </Layout>
+        );
+    };
 };
