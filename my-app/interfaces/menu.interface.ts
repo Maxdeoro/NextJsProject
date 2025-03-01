@@ -12,8 +12,8 @@ export interface MenuItem {
 	_id: {
 		secondCategory: string;
 	};
-	pages: PageItem[];
 	isOpened?: boolean;
+	pages: PageItem[];
 }
 
 export interface FirstLevelMenuItem {
