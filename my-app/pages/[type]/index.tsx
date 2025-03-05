@@ -1,4 +1,4 @@
-import React from 'react';
+import {JSX} from 'react';
 import { withLayout } from '../../layout/Layout';
 import axios from 'axios';
 import { GetStaticProps,GetStaticPaths,GetStaticPropsContext } from 'next';
