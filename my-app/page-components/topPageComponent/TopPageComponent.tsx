@@ -1,29 +1,27 @@
 import { JSX } from 'react';
 import { TopPageComponentProps } from './TopPageComponent.props';
 import styles from './TopPageComponent.module.css';
-import { Card, Htag, Tag } from '../../components';
+import { Card, Htag, Paragraf, Tag } from '../../components';
+import { HhData } from '../../components/hhData/HhData';
+import { TopLevelCategory } from '../../interfaces/page.interface';
 
 export const TopPageComponent = ({page, products, firstCategory}: TopPageComponentProps): JSX.Element => {
     return (
         <div className={styles.wrapper}>
+
             <div className={styles.title}>
                 <Htag tag='h1'>{page.title}</Htag>
-                {products && <Tag color='green' size='medium'>{products.length}</Tag>}   {/* if products exist... */}
-                <span>Here's sorting</span>
+                {products && <Tag color='grey' size='medium'>{products.length}</Tag>}
+                <span>SORTING</span>
             </div>
             <div>
                 {products && products.map(p => (<div key={p._id}>{p.title}</div>))}
             </div>
             <div className={styles.hhTitle}>
-                <Htag tag='h2'>Jobs - {page.category}</Htag>
-                <Tag color='red'>Jobs</Tag>
+                <Htag tag='h2'>Вакансии - {page.category}</Htag>
+                <Tag color='red' size='medium'>hh.ru</Tag>
             </div>
-            <div className={styles.hh}>
-                <Card className={styles.hhCount}>
-                    <div className={styles.hhStatTitle}>Total vacancies</div>
-                    <div className={styles.hhStatCount}>{page.hh.count}</div>
-                </Card>
-            </div>
+            {firstCategory == TopLevelCategory.Courses && <HhData {...page.hh} />}
         </div>
-    );
+    )
 };
