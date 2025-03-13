@@ -4,6 +4,7 @@ import { Button } from '../components/button/Button';
 import { Paragraf } from '../components/para/Para';
 import { Tag } from '../components/tag/Tag';
 import { Rating } from '../components';
+import { Input } from '../components';
 import { withLayout } from '../layout/Layout';
 import { MenuItem } from '../interfaces/menu.interface';
 import axios from 'axios';
@@ -41,6 +42,7 @@ function Home({menu}: HomeProps): JSX.Element {
       <Tag color='red' size='medium'>MySite</Tag>
       <Tag color='primary' size='small'>consectetur adipiscing elit,</Tag>
       <Rating rating={rating} isEditable setRating={setRating}/>
+      <Input placeholder='TEXT'/>
     </>
   )
 };

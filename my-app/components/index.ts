@@ -6,3 +6,4 @@ export * from './rating/Rating';
 export * from './card/Card';
 export * from './hhData/HhData';
 export * from './sort/Sort';
+export * from './input/Input';
