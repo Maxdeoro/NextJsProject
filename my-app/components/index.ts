@@ -7,3 +7,4 @@ export * from './card/Card';
 export * from './hhData/HhData';
 export * from './sort/Sort';
 export * from './input/Input';
+export * from './textarea/Textarea';

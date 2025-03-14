@@ -3,7 +3,7 @@ import { Htag } from '../components/htag/Htag';
 import { Button } from '../components/button/Button';
 import { Paragraf } from '../components/para/Para';
 import { Tag } from '../components/tag/Tag';
-import { Rating } from '../components';
+import { Rating, Textarea } from '../components';
 import { Input } from '../components';
 import { withLayout } from '../layout/Layout';
 import { MenuItem } from '../interfaces/menu.interface';
@@ -43,6 +43,7 @@ function Home({menu}: HomeProps): JSX.Element {
       <Tag color='primary' size='small'>consectetur adipiscing elit,</Tag>
       <Rating rating={rating} isEditable setRating={setRating}/>
       <Input placeholder='TEXT'/>
+      <Textarea placeholder='Write message here'/>
     </>
   )
 };
