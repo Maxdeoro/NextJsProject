@@ -1,8 +1,11 @@
+import { JSX } from 'react';
 import React from 'react';
 import { withLayout } from '../layout/Layout';
 import axios from 'axios';
 import { GetStaticProps } from 'next';
 import { MenuItem } from '../interfaces/menu.interface';
+import { TopLevelCategory, TopPageModel } from '../interfaces/page.interface';
+import { ProductModel } from '../interfaces/product.interface';
 
 function Search (): JSX.Element {
     return (
@@ -33,3 +36,8 @@ interface CourseProps extends Record<string,unknown> {
     page: TopPageModel;
     products: ProductModel[];
 };
+
+interface HomeProps extends Record<string, unknown> {
+	menu: MenuItem[];
+	firstCategory: number;
+}
