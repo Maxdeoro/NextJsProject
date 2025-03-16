@@ -1,7 +1,7 @@
 import { JSX, useReducer } from 'react';
 import { TopPageComponentProps } from './TopPageComponent.props';
 import styles from './TopPageComponent.module.css';
-import { Card, Htag, Paragraf, Sort, Tag } from '../../components';
+import { Card, Htag, Paragraf, Product, Sort, Tag } from '../../components';
 import { HhData } from '../../components/hhData/HhData';
 import { TopLevelCategory } from '../../interfaces/page.interface';
 import { Advantages } from '../../components/advantages/Advantages';
@@ -24,11 +24,11 @@ export const TopPageComponent = ({page, products, firstCategory}: TopPageCompone
             <div className={styles.title}>
                 <Htag tag='h1'>{page.title}</Htag>
                 {products && <Tag color='grey' size='medium'>{products.length}</Tag>}
-                {/* <span>SORTING</span> */}
                 <Sort sort={sort} setSort={setSort}/>
             </div>
             <div>
-                {products && sortedProducts.map(p => (<div key={p._id}>{p.title}</div>))}
+                {products && sortedProducts.map(p => (<Product product={p} key={p._id}/>))}
+                {/* {products && sortedProducts.map(p => (<div key={p._id}>{p.title}</div>))} */}
             </div>
             <div className={styles.hhTitle}>
                 <Htag tag='h2'>Вакансии - {page.category}</Htag>

@@ -11,13 +11,7 @@ import { firstLevelMenu} from '../../helpers/helpers';
 
 
 function TopPage({firstCategory,page,products}: TopPageProps): JSX.Element {
-// function TopPage({menu,page,products}: TopPageProps): JSX.Element {
     return <TopPageComponent firstCategory={firstCategory} page={page} products={products}/>
-    // return (
-    //     <>
-    //         {products && products.length}
-    //     </>
-    // );
 };
 
 export default withLayout(TopPage);
