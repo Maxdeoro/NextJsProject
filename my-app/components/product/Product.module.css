@@ -1,7 +1,7 @@
 .product {
     display: grid;
-    /* grid-template-columns: [start] 70px [logoend] 30px [titlestart] calc(50% - 100px) [middle] 1fr [pricestart] auto [priceend creditstart] auto [creditend ratestart] auto [rateend] 40px [end]; */
-    grid-template-columns: [start] 70px [logoend] 30px [titlestart] calc(50% - 100px) [middle] 170px [pricestart] auto [priceend creditstart] auto [creditend ratestart] auto [end];
+    grid-template-columns: [start] 70px [logoend] 30px [titlestart] calc(50% - 100px) 
+    [middle] 1fr [pricestart] auto [priceend] 10px [creditstart] auto [creditend] 10px [ratestart] auto [end];
     margin-bottom: 30px;
     padding: 30px;
 }
@@ -39,40 +39,77 @@
     grid-column: middle / end;
 }
 
-
-/* .product {
-    display: grid;
-    grid-template-columns: 70px 30px calc(50% - 100px) 1fr auto auto 40px;
-    grid-template-areas: 
-        "logo title middle price credit rate extra";
-    margin-bottom: 30px;
-    padding: 30px;
+.logo img {
+    border-radius: 5px;
 }
 
-.product .logo {
-    grid-area: logo;
+.title {
+    font-weight: 600;
+    font-size: 20px;
+    line-height: 27px;
+    align-self: flex-end;
 }
 
-.product .title {
-    grid-area: title;
+.category {
+    margin-top: 7px;
 }
 
-.product .middle {
-    grid-area: middle;
+.price, .credit {
+    font-size: 20px;
+    line-height: 27px;
+    align-self: flex-end;
 }
 
-.product .price {
-    grid-area: price;
+.month {
+    font-size: 15px;
+    line-height: 19px;
 }
 
-.product .credit {
-    grid-area: credit;
+.oldPrice {
+    margin-left: 4px;
 }
 
-.product .rate {
-    grid-area: rate;
+.rating {
+    align-self: flex-end;
 }
 
-.product .extra {
-    grid-area: extra;
-} */
+.priceTitle,
+.creditTitle,
+.reviewTitle {
+    font-weight: 300;
+    font-size: 15px;
+    line-height: 19px;
+}
+
+.description {
+    font-size: 16px;
+    line-height: 24px;
+    margin-bottom: 15px;
+}
+
+.reviewButton {
+    margin-left: 20px;
+}
+
+.advTitle {
+    font-weight: bold;
+    font-size: 16px;
+    line-height: 22px;
+    margin-bottom: 5px;
+}
+
+.advBlock {
+    font-size: 16px;
+    line-height: 22px;
+}
+
+.advantages {
+    border-left: 3px solid var(--green);
+    padding-left: 15px;
+    margin-bottom: 20px;
+}
+
+.disadvantages {
+    border-left: 3px solid var(--red);
+    padding-left: 15px;
+}
