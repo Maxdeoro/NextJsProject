@@ -6,7 +6,7 @@ import { Card } from "../card/Card";
 import { Rating } from "../rating/Rating";
 import { Tag } from "../tag/Tag";
 import { Button } from "../button/Button";
-import { priceRu } from "../../helpers/helpers";
+import { declensionRU, priceRu } from "../../helpers/helpers";
 import { Divider } from "../divider/Divider";
 
 export const Product = ({product, className, ...props}: ProductProps): JSX.Element => {
@@ -29,7 +29,9 @@ export const Product = ({product, className, ...props}: ProductProps): JSX.Eleme
             })}</div>
             <div className={styles.priceTitle}>Price</div>
             <div className={styles.creditTitle}>Credit</div>
-            <div className={styles.reviewTitle}>{product.reviewCount}Reviews</div>
+            <div className={styles.reviewTitle}>{product.reviewCount}
+                {declensionRU(product.reviewCount, ['отзыв', 'отзыва', 'отзывов'])}
+            </div>
             <Divider className={styles.hr}/>
             <div className={styles.description}>{product.description}</div>
             <div className={styles.feature}>FEATURES</div>
