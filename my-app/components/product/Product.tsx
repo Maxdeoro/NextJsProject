@@ -8,12 +8,15 @@ import { Tag } from "../tag/Tag";
 import { Button } from "../button/Button";
 import { priceRu } from "../../helpers/helpers";
 import { Divider } from "../divider/Divider";
+import Image from 'next/image';
 
 export const Product = ({product, className, ...props}: ProductProps): JSX.Element => {
     return (
         <Card className={styles.product}>
-            {/* <div className={styles.logo}><img src={process.env.NEXT_PUBLIC_DOMAIN + product.image} alt={product.title}/></div> */}
-            <div className={styles.logo}><img src={product.image} alt={product.title}/></div>
+            <div className={styles.logo}>
+                {/* <Image src={process.env.NEXT_PUBLIC_DOMAIN + product.image} alt={product.title} width={70} height={70}/> */}
+                <img src={product.image} alt={product.title}/>
+            </div>
             <div className={styles.title}>{product.title}</div>
             <div className={styles.price}>
                 {priceRu(product.price)}
