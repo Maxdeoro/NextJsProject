@@ -1,7 +1,7 @@
 .wrapper {
     display: grid;
     min-height: 100vh;
-    gap: 0 30px;    /* between sidebar and content */
+    gap: 40px 30px;    /* between sidebar and content */
     grid-template-columns: auto 230px minmax(320px,1200px) auto;   /* 4columns */
     grid-template-rows: auto 1fr auto;  /*3 rows*/
     grid-template-areas: ". header header ."
@@ -34,9 +34,12 @@
                              "footer";
     }
     .sidebar {
-        display: none;
+        display: none !important;
     }
     .header {
         display: block;
+    }
+    .body {
+        padding: 15px;
     }
 }
