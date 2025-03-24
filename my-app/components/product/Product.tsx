@@ -1,4 +1,4 @@
-import { JSX } from "react";
+import { JSX, useState } from "react";
 import { ProductProps } from "./Product.props";
 import styles from './Product.module.css';
 import cn from 'classnames';
@@ -11,7 +11,10 @@ import { Divider } from "../divider/Divider";
 import Image from 'next/image';
 
 export const Product = ({product, className, ...props}: ProductProps): JSX.Element => {
+    const [isReviewOpend, setIsReviewOpend] = useState<boolean>(false);
+
     return (
+        <>
         <Card className={styles.product}>
             <div className={styles.logo}>
                 {/* <Image src={process.env.NEXT_PUBLIC_DOMAIN + product.image} alt={product.title} width={70} height={70}/> */}
@@ -59,10 +62,21 @@ export const Product = ({product, className, ...props}: ProductProps): JSX.Eleme
             <Divider className={cn(styles.hr, styles.hr2)}/>
             <div className={styles.actions}>
                 <Button appearance="primary">Learn more</Button>
-                <Button appearance="ghost" arrow={"right"} className={styles.reviewButton}>
+                <Button appearance="ghost" 
+                        arrow={isReviewOpend ? 'down' : 'right'} 
+                        className={styles.reviewButton}
+                        onClick={() => setIsReviewOpend(!isReviewOpend)}
+                >
                     Read reviews
                 </Button>
             </div>
         </Card>
+        <Card color='blue' className={cn(styles.reviews, {
+            [styles.opened]: isReviewOpend,
+            [styles.closed]: !isReviewOpend,
+        })}>
+            FORM
+        </Card>
+        </>
     );
 };
