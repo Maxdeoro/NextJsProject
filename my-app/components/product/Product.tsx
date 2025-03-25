@@ -8,6 +8,7 @@ import { Tag } from "../tag/Tag";
 import { Button } from "../button/Button";
 import { priceRu } from "../../helpers/helpers";
 import { Divider } from "../divider/Divider";
+import { Review } from '../review/Review';
 import Image from 'next/image';
 
 export const Product = ({product, className, ...props}: ProductProps): JSX.Element => {
@@ -75,7 +76,9 @@ export const Product = ({product, className, ...props}: ProductProps): JSX.Eleme
             [styles.opened]: isReviewOpend,
             [styles.closed]: !isReviewOpend,
         })}>
-            FORM
+            {product.reviews.map(r => {
+                <Review key={r._id} review={r}/>;
+            })}
         </Card>
         </>
     );
