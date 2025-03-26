@@ -9,6 +9,7 @@ import { Button } from "../button/Button";
 import { priceRu } from "../../helpers/helpers";
 import { Divider } from "../divider/Divider";
 import { Review } from '../review/Review';
+import { ReviewForm } from '../reviewForm/ReviewForm';
 import Image from 'next/image';
 
 export const Product = ({product, className, ...props}: ProductProps): JSX.Element => {
@@ -78,7 +79,9 @@ export const Product = ({product, className, ...props}: ProductProps): JSX.Eleme
         })}>
             {product.reviews.map(r => {
                 <Review key={r._id} review={r}/>;
+                <Divider/>
             })}
+            <ReviewForm productId={product._id}/>
         </Card>
         </>
     );
