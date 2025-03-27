@@ -26,6 +26,43 @@
 
 .rating {
     display: grid;
-    grid-template-columns: auto auto;
+    grid-template-columns: auto 1fr;
     gap: 7px;
+}
+
+.success {
+    background: var(--green-light);
+    padding: 20px;
+    position: relative;
+    border-radius: 5px;
+    margin-top: 20px;
+}
+
+.successTitle {
+    font-weight: bold;
+}
+
+.close {
+    position: absolute;
+    top: 15px;
+    right: 15px;
+    cursor: pointer;
+}
+
+@media screen and (max-width: 1300px) {
+    .reviewForm {
+        grid-template-columns: [start] 1fr 1fr [end];
+    }
+    .rating {
+        grid-column: start / end;
+    }
+    .title {
+        justify-self: normal;
+    }
+}
+
+@media screen and (max-width: 640px) {
+    .reviewForm{
+        grid-template-columns: [start] 1fr [end];
+    }
 }
