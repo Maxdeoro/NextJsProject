@@ -17,7 +17,7 @@ export const Review = ({review, className, ...props}: ReviewProps): JSX.Element 
                 <span>{title}</span>
             </div>
             <div className={styles.date}>
-                {format(newDate(createdAt), 'dd MMMM yyyy')}
+                {format(new Date(createdAt), 'dd MMMM yyyy')}
             </div>
             <div className={styles.rating}>
                 <Rating rating={rating}/>
