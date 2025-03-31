@@ -11,7 +11,7 @@ import { useForm, Controller } from 'react-hook-form';
 import { IReviewForm } from './ReviewForm.interface';
 
 export const ReviewForm = ({productId, className, ...props}: ReviewFormProps): JSX.Element => {
-    const {register,control,handleSubmit} = useForm<IReviewForm>();
+    const {register, control, handleSubmit, formState: {errors}} = useForm<IReviewForm>();
     const onSubmit = (data: IReviewForm) => {
         console.log(data);
     };
@@ -19,15 +19,23 @@ export const ReviewForm = ({productId, className, ...props}: ReviewFormProps): J
     return (
         <form onSubmit={handleSubmit(onSubmit)}>
             <div className={cn(styles.reviewForm, className)} {...props}>
-                <Input {...register('name')} placeholder='Name'/>
-                <Input {...register('title')} placeholder='Review title' className={styles.reviewTitle}/>
+                <Input error={errors.name} 
+                {...register('name', { required: { value: true, message: 'Enter your name, please' } })}
+                placeholder='Name'/>
+                <Input error={errors.title} 
+                {...register('title', {required: { value: true, message: 'Fill the title, please'}})} 
+                placeholder='Review title' 
+                className={styles.reviewTitle}/>
                 <div className={styles.rating}>
                     <span>Rating</span>
                     <Controller control={control} name='rating' render={(field) => 
                         <Rating isEditable rating={field.field.value} ref={field.field.ref} setRating={field.field.onChange} />}>
                     </Controller>
                 </div>
-                <Textarea {...register('description')} className={styles.description} placeholder='Write review here'/>
+                <Textarea error={errors.description} 
+                {...register('description', {required: {value: true, message: "Fill this fied, please"}})} 
+                className={styles.description} 
+                placeholder='Write review here'/>
                 <div className={styles.submit}>
                     <Button appearance='primary' className={styles.button}>Send</Button>
                     <span>Before publication, the review will undergo preliminary moderation and verification.</span>
