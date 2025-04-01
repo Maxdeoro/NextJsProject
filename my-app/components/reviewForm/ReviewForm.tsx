@@ -22,16 +22,26 @@ export const ReviewForm = ({productId, className, ...props}: ReviewFormProps): J
                 <Input error={errors.name} 
                 {...register('name', { required: { value: true, message: 'Enter your name, please' } })}
                 placeholder='Name'/>
+
                 <Input error={errors.title} 
                 {...register('title', {required: { value: true, message: 'Fill the title, please'}})} 
                 placeholder='Review title' 
                 className={styles.reviewTitle}/>
+
                 <div className={styles.rating}>
                     <span>Rating</span>
-                    <Controller control={control} name='rating' render={(field) => 
-                        <Rating isEditable rating={field.field.value} ref={field.field.ref} setRating={field.field.onChange} />}>
+                    <Controller control={control} 
+                    name='rating' 
+                    rules={{required: {value: true, message: 'Set the rating'}}}
+                    render={(field) => 
+                        <Rating error={errors.rating} 
+                        isEditable 
+                        rating={field.field.value} 
+                        ref={field.field.ref} 
+                        setRating={field.field.onChange} />}>
                     </Controller>
                 </div>
+
                 <Textarea error={errors.description} 
                 {...register('description', {required: {value: true, message: "Fill this fied, please"}})} 
                 className={styles.description} 
