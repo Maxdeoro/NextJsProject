@@ -15,3 +15,4 @@ export * from './advantages/Advantages';
 export * from './review/Review';
 export * from './reviewForm/ReviewForm';
 export * from './up/up';
+export * from './buttonIcon/ButtonIcon';
