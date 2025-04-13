@@ -41,14 +41,6 @@
     /* display: none; */
 }
 
-/* .secondLevelBlockOpened {
-    display: block;
-}
-
-.secondLevelBlockOpened:last-child {
-    margin-bottom: 20px;
-} */
-
 .thirdLevel {
     display: block;
     margin-bottom: 10px;
@@ -56,7 +48,8 @@
     color: var(--grey-dark);
     font-weight: 400;
     font-size: 15px;
-    line-height: 18px;
+    line-height: 12px;
+    outline-offset: 1px;
 }
 
 .thirdLevelActive,
