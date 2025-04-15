@@ -1,35 +1,56 @@
-import { ForwardedRef, forwardRef, JSX, KeyboardEvent, useEffect, useState } from "react";
+import { ForwardedRef, forwardRef, JSX, KeyboardEvent, useEffect, useRef, useState, createRef } from "react";
 import { RatingProps } from "./Rating.props";
 import StarIcon from './star.svg';
 import cn from 'classnames';
 import styles from './Rating.module.css';
 
-export const Rating = forwardRef(({isEditable=false, rating, setRating, error, ...props}: RatingProps, 
+export const Rating = forwardRef(({isEditable=false, rating, setRating, error,
+    tabIndex, ...props}: RatingProps, 
     ref: ForwardedRef<HTMLDivElement>): JSX.Element => {
 
-    const [ratingArray, setRatingArray] = useState<JSX.Element[]>(new Array(5).fill(<></>));    // initial state of rating stars
+    const [ratingArray, setRatingArray] = useState<JSX.Element[]>([]);
+    const ratingArrayRef = Array.from({length: 5}, () => createRef<HTMLSpanElement>());
+    const computeFocus = (r: number, i: number): number => {
+        if(!isEditable) {
+            return -1;
+        }
+        if(!rating && i == 0) {
+            return tabIndex ?? 0;
+        }
+        if(r == i + 1) {
+            return tabIndex ?? 0;
+        }
+        return -1;
+    };
 
     useEffect(() => {
         constructRating(rating);
-        }, [rating]);
+    }, [rating, tabIndex]);
+    // useEffect(() => {
+    //     constructRating(rating);
+    // }, [rating, isEditable]);
 
     const constructRating = (currentRating: number) => {
-        const updatedArray = ratingArray.map((r: JSX.Element, i: number) => {
+        const updatedArray = Array.from({length: 5}, (_, i) => {
             return (
-                <span className={cn(styles.star, {
+                <span key={i} className={cn(styles.star, {
                     [styles.filled]: i < currentRating,
                     [styles.editable]: isEditable,
                     })}
                     onMouseEnter={() => changeDisplay(i + 1)} 
                     onMouseLeave={() => changeDisplay(rating)} 
                     onClick={() => onClick(i + 1)} 
+                    tabIndex={isEditable ? computeFocus(rating, i) : -1} 
+                    onKeyDown={handleKey}
+                    ref={ratingArrayRef[i]} 
+                    role={isEditable ? 'slider' : ''}
+                    aria-invalid={error ? true : false}
+                    aria-valuenow={rating ?? 0}
+                    aria-valuemax={5}
+                    aria-label={isEditable ? 'Pick rating' : (`rating ${rating}`)} 
+                    aria-valuemin={1}          
                 >
-                    <StarIcon 
-                        tabIndex={isEditable ? 0 : -1} 
-                        onKeyDown={(e: KeyboardEvent<SVGElement>) => {
-                            isEditable && handleSpace(i + 1, e);
-                        }}
-                    />
+                    <StarIcon />
                 </span>
             );
         });
@@ -50,11 +71,24 @@ export const Rating = forwardRef(({isEditable=false, rating, setRating, error, .
         setRating(i);
     };
 
-    const handleSpace = (i: number, e: KeyboardEvent<SVGElement>) => {
-        if (e.code != 'Space' || !setRating) {
+    const handleKey = ( e: KeyboardEvent) => {
+        if (!isEditable || !setRating) {
             return;
         }
-        setRating(i);
+        if(e.code == 'ArrowRight' || e.code == 'ArrowUp') {
+            if(!rating) {
+                setRating(1);
+            } else {
+                e.preventDefault();
+                setRating(rating < 5 ? rating + 1 : 5);
+            }
+            ratingArrayRef[rating]?.current?.focus();
+        }
+        if(e.code == 'ArrowLeft' || e.code == 'ArrowDown') {
+            e.preventDefault();
+            setRating(rating > 1 ? rating - 1 : 1);
+            ratingArrayRef[rating - 2]?.current?.focus();
+        }
     }
 
     return (
@@ -62,6 +96,7 @@ export const Rating = forwardRef(({isEditable=false, rating, setRating, error, .
             [styles.error]: error,
         })} {...props}>
             {ratingArray.map((r, i) => (<span key={i}>{r}</span>))}
+            {/* {error && <span role="alert" className={styles.errorMessage}>{error.message}</span>} */}
             {error && <span role="alert" className={styles.errorMessage}>{error.message}</span>}
         </div>
     );

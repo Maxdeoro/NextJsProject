@@ -12,7 +12,7 @@ import { IReviewForm, IReviewSentResponse } from './ReviewForm.interface';
 import axios from 'axios';
 import { API } from '../../helpers/api';
 
-export const ReviewForm = ({productId, className, ...props}: ReviewFormProps): JSX.Element => {
+export const ReviewForm = ({productId, className, isOpened, ...props}: ReviewFormProps): JSX.Element => {
     const {register, control, handleSubmit, formState: {errors}, reset} = useForm<IReviewForm>();
     const [isSuccess, setIsSuccess] = useState<boolean>(false);
     const [error, setIsError] = useState<string>();
@@ -35,9 +35,6 @@ export const ReviewForm = ({productId, className, ...props}: ReviewFormProps): J
                 setIsError('An unknown error occurred');
             }
         }
-        // catch (e: any) {
-        //     setIsError(e.message);
-        // }
     };
 
     return (
@@ -45,12 +42,14 @@ export const ReviewForm = ({productId, className, ...props}: ReviewFormProps): J
             <div className={cn(styles.reviewForm, className)} {...props}>
                 <Input error={errors.name} 
                 {...register('name', { required: { value: true, message: 'Enter your name, please' } })}
-                placeholder='Name'/>
+                placeholder='Name' 
+                tabIndex={isOpened ? 0 : -1}/>
 
                 <Input error={errors.title} 
                 {...register('title', {required: { value: true, message: 'Fill the title, please'}})} 
                 placeholder='Review title' 
-                className={styles.reviewTitle}/>
+                className={styles.reviewTitle}
+                tabIndex={isOpened ? 0 : -1}/>
 
                 <div className={styles.rating}>
                     <span>Rating</span>
@@ -62,16 +61,22 @@ export const ReviewForm = ({productId, className, ...props}: ReviewFormProps): J
                         isEditable 
                         rating={field.field.value} 
                         ref={field.field.ref} 
-                        setRating={field.field.onChange} />}>
+                        setRating={field.field.onChange} 
+                        tabIndex={isOpened ? 0 : -1}/>}
+                    >
                     </Controller>
                 </div>
 
                 <Textarea error={errors.description} 
                 {...register('description', {required: {value: true, message: "Fill this fied, please"}})} 
                 className={styles.description} 
-                placeholder='Write review here'/>
+                placeholder='Write review here'
+                tabIndex={isOpened ? 0 : -1}
+                />
                 <div className={styles.submit}>
-                    <Button appearance='primary' className={styles.button}>Send</Button>
+                    <Button appearance='primary' className={styles.button} tabIndex={isOpened ? 0 : -1}>
+                        Send
+                    </Button>
                     <span>Before publication, the review will undergo preliminary moderation and verification.</span>
                 </div>
             </div>
