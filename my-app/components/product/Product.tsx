@@ -47,19 +47,30 @@ export const Product = motion(forwardRef(({product, className, ...props}: Produc
             </div>
             <div className={styles.title}>{product.title}</div>
             <div className={styles.price}>
-                {priceRu(product.price)}
+                <span>
+                    <span className="visualyHidden">Price</span>
+                    {priceRu(product.price)}
+                </span>
                 {product.oldPrice && <Tag color="green" className={styles.oldPrice}>
+                    <span className="visualyHidden">Discount</span>
                     {priceRu(product.price - product.oldPrice)}
                     </Tag>}
             </div>
-            <div className={styles.credit}>{priceRu(product.credit)}
-                /<span className={styles.month}>Month</span></div>
-            <div className={styles.rating}><Rating rating={product.reviewAvg ?? product.initialRating}/></div>
+            <div className={styles.credit}>
+                <span className="visualyHidden">Credit</span>
+                {priceRu(product.credit)}/<span className={styles.month}>Month</span>
+            </div>
+            <div className={styles.rating}>
+                <span className="visualyHidden">
+                    {'Rating' + (product.reviewAvg ?? product.initialRating)}
+                </span>
+                <Rating rating={product.reviewAvg ?? product.initialRating}/>
+            </div>
             <div className={styles.tags}>{product.categories.map((c) => {
                 return <Tag className={styles.category} key={c} color="ghost">{c}</Tag>
             })}</div>
-            <div className={styles.priceTitle}>Price</div>
-            <div className={styles.creditTitle}>Credit</div>
+            <div className={styles.priceTitle} aria-hidden={true}>Price</div>
+            <div className={styles.creditTitle} aria-hidden={true}>Credit</div>
             <div className={styles.reviewTitle}>
                 <a href='#ref' onClick={scrollToReview}>{product.reviewCount}Reviews</a>
             </div>
