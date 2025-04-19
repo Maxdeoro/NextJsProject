@@ -25,7 +25,7 @@ export const Search = ({className, ...props}: SearchProps): JSX.Element => {
     };
 
     return (
-        <div className={cn(className, styles.search)} {...props}>
+        <form className={cn(className, styles.search)} {...props} role="search">
             <Input className={styles.input} 
                     placeholder="Search..." 
                     value={search} 
@@ -38,6 +38,6 @@ export const Search = ({className, ...props}: SearchProps): JSX.Element => {
                     aria-label='Search on the site'
                 <SearchIcon/>
             </Button>
-        </div>
+        </form>
     );
 };
