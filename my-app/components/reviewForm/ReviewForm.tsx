@@ -13,7 +13,7 @@ import axios from 'axios';
 import { API } from '../../helpers/api';
 
 export const ReviewForm = ({productId, className, isOpened, ...props}: ReviewFormProps): JSX.Element => {
-    const {register, control, handleSubmit, formState: {errors}, reset} = useForm<IReviewForm>();
+    const {register, control, handleSubmit, formState: {errors}, reset, clearErrors} = useForm<IReviewForm>();
     const [isSuccess, setIsSuccess] = useState<boolean>(false);
     const [error, setIsError] = useState<string>();
     const onSubmit = async (formData: IReviewForm) => {
@@ -43,13 +43,17 @@ export const ReviewForm = ({productId, className, isOpened, ...props}: ReviewFor
                 <Input error={errors.name} 
                 {...register('name', { required: { value: true, message: 'Enter your name, please' } })}
                 placeholder='Name' 
-                tabIndex={isOpened ? 0 : -1}/>
+                tabIndex={isOpened ? 0 : -1} 
+                aria-invalid={errors.name ? true : false}
+                />
 
                 <Input error={errors.title} 
                 {...register('title', {required: { value: true, message: 'Fill the title, please'}})} 
                 placeholder='Review title' 
                 className={styles.reviewTitle}
-                tabIndex={isOpened ? 0 : -1}/>
+                tabIndex={isOpened ? 0 : -1}
+                aria-invalid={errors.title ? true : false}
+                />
 
                 <div className={styles.rating}>
                     <span>Rating</span>
@@ -72,9 +76,15 @@ export const ReviewForm = ({productId, className, isOpened, ...props}: ReviewFor
                 className={styles.description} 
                 placeholder='Write review here'
                 tabIndex={isOpened ? 0 : -1}
+                aria-label='Rewiew text' 
+                aria-invalid={errors.description ? true : false}
                 />
                 <div className={styles.submit}>
-                    <Button appearance='primary' className={styles.button} tabIndex={isOpened ? 0 : -1}>
+                    <Button appearance='primary' 
+                            className={styles.button} 
+                            tabIndex={isOpened ? 0 : -1} 
+                            onClick={() => clearErrors()}
+                    >
                         Send
                     </Button>
                     <span>Before publication, the review will undergo preliminary moderation and verification.</span>

@@ -26,9 +26,6 @@ export const Rating = forwardRef(({isEditable=false, rating, setRating, error,
     useEffect(() => {
         constructRating(rating);
     }, [rating, tabIndex]);
-    // useEffect(() => {
-    //     constructRating(rating);
-    // }, [rating, isEditable]);
 
     const constructRating = (currentRating: number) => {
         const updatedArray = Array.from({length: 5}, (_, i) => {
@@ -43,12 +40,12 @@ export const Rating = forwardRef(({isEditable=false, rating, setRating, error,
                     tabIndex={isEditable ? computeFocus(rating, i) : -1} 
                     onKeyDown={handleKey}
                     ref={ratingArrayRef[i]} 
-                    role={isEditable ? 'slider' : ''}
+                    role={isEditable ?'slider' : ""}
                     aria-invalid={error ? true : false}
-                    aria-valuenow={rating ?? 0}
-                    aria-valuemax={5}
-                    aria-label={isEditable ? 'Pick rating' : (`rating ${rating}`)} 
-                    aria-valuemin={1}          
+                    aria-valuenow={rating} 
+                    aria-valuemin={1} 
+                    aria-valuemax={5} 
+                    aria-label={isEditable ? 'Set rating' : ('Rating' + rating)} 
                 >
                     <StarIcon />
                 </span>
@@ -97,7 +94,7 @@ export const Rating = forwardRef(({isEditable=false, rating, setRating, error,
         })} {...props}>
             {ratingArray.map((r, i) => (<span key={i}>{r}</span>))}
             {/* {error && <span role="alert" className={styles.errorMessage}>{error.message}</span>} */}
-            {error && <span role="alert" className={styles.errorMessage}>{error.message}</span>}
+            {error && <span role='alert' className={styles.errorMessage}>{error.message}</span>}
         </div>
     );
 });
