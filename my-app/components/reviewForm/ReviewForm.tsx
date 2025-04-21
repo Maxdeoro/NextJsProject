@@ -90,14 +90,24 @@ export const ReviewForm = ({productId, className, isOpened, ...props}: ReviewFor
                     <span>Before publication, the review will undergo preliminary moderation and verification.</span>
                 </div>
             </div>
-            {isSuccess && <div className={cn(styles.success, styles.panel)}>
+            {isSuccess && <div className={cn(styles.success, styles.panel)} role='alert'>
                 <div className={styles.successTitle}>Your review has been sent.</div>
                 <div>Thank you, your review will be published after verification.</div>
-                <CloseIcon className={styles.close} onClick={() => setIsSuccess(false)}/>
+                <button onClick={() => setIsSuccess(false)}  
+                        className={styles.close}
+                        aria-label='Close message'
+                >
+                    <CloseIcon />
+                </button>
             </div>}
-            {error && <div className={cn(styles.error, styles.panel)}>
+            {error && <div className={cn(styles.error, styles.panel)} role='alert'>
                 Something went wrong! Try to reload page.
-                <CloseIcon className={styles.close} onClick={() => setIsError(undefined)}/>
+                <button className={styles.close} 
+                        onClick={() => setIsError(undefined)}
+                        aria-label='Close message'
+                >
+                    <CloseIcon/>
+                </button>
             </div>}
         </form>
     );
