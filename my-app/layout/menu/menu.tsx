@@ -59,7 +59,7 @@ export const Menu = (): JSX.Element => {
 
     const buildFirstLevel = () => {
         return (
-            <ul>
+            <ul className={styles.firstLevelList}>
                 {firstLevelMenu.map(m => (
                     <li key={m.route} aria-expanded={m.id === firstCategory}>
                         <Link href={`/${m.route}`}>
@@ -98,7 +98,7 @@ export const Menu = (): JSX.Element => {
                                 variants={variants}
                                 initial={m.isOpened ? 'visible' : 'hidden'}
                                 animate={m.isOpened ? 'visible' : 'hidden'}
-                                className={cn(styles.secondLevelBlock)}>
+                                className={styles.secondLevelBlock}>
                                 {buildThirdLevel(m.pages, menuItem.route, m.isOpened ?? false)}
                             </motion.ul>
                         </li>
@@ -113,7 +113,8 @@ export const Menu = (): JSX.Element => {
             pages.map(p => (
                 <motion.li  key={p._id} variants={variantsChildren}>
                     <Link href={`/${route}/${p.alias}`} 
-                         tabIndex={isOpened ? 0 : -1} 
+                         tabIndex={isOpened ? 0 : -1}
+                         aria-current={`/${route}/${p.alias}` == router.asPath ? 'page' : false} 
                          className={cn(styles.thirdLevel, {
                         [styles.thirdLevelActive]: `/${route}/${p.alias}` === router.asPath,
                     })}>
