@@ -7,12 +7,16 @@ import { TopLevelCategory } from '../../interfaces/page.interface';
 import { Advantages } from '../../components/advantages/Advantages';
 import { SortEnum } from '../../components/sort/Sort.props';
 import { sortReducer } from './sort.reducer';
+import { useReducedMotion } from 'framer-motion';
 
 export const TopPageComponent = ({page, products, firstCategory}: TopPageComponentProps): JSX.Element => {
 
     const [{products: sortedProducts, sort}, dispatchSort] = useReducer(sortReducer, {products,
         sort: SortEnum.Rating
     });
+
+    const shouldReduceMotion = useReducedMotion();
+
     const setSort = (sort: SortEnum) => {
         dispatchSort({type: sort});
     };
@@ -27,13 +31,21 @@ export const TopPageComponent = ({page, products, firstCategory}: TopPageCompone
 
             <div className={styles.title}>
                 <Htag tag='h1'>{page.title}</Htag>
-                {products && <Tag color='grey' size='medium'>{products.length}</Tag>}
+                {products && <Tag color='grey' 
+                                  size='medium' 
+                                  aria-label={products.length + ' elements'}
+                             >
+                                {products.length}
+                              </Tag>
+                }
                 <Sort sort={sort} setSort={setSort}/>
             </div>
-            <div>
+            <div role='list'>
                 {sortedProducts && sortedProducts.map(p => (
-                    <Product layout product={p} key={p._id}/>))}
-                {/* {products && sortedProducts.map(p => (<div key={p._id}>{p.title}</div>))} */}
+                    <Product layout={shouldReduceMotion ? false : true} 
+                             product={p} 
+                             key={p._id} 
+                             role='listItem'/>))}
             </div>
             <div className={styles.hhTitle}>
                 <Htag tag='h2'>Вакансии - {page.category}</Htag>

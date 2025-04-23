@@ -1,4 +1,4 @@
-import { useContext } from "react";
+import { useContext, KeyboardEvent, useState } from "react";
 import cn from 'classnames';
 import styles from './menu.module.css';
 import { AppContext } from "../../context/app.context";
@@ -9,16 +9,18 @@ import { format } from 'date-fns';
 import { Paragraf } from '../../components';
 import { firstLevelMenu } from '../../helpers/helpers';
 import { JSX } from 'react';
-import { motion, stagger } from 'framer-motion';
+import { motion, stagger, useReducedMotion } from 'framer-motion';
 
 export const Menu = (): JSX.Element => {
     const { menu, setMenu, firstCategory } = useContext(AppContext);
+    const [announce, setAnnounce] = useState<'closed' | 'opened' | undefined>();
     const router = useRouter();
+    const shouldReduceMotion = useReducedMotion();
 
     const variants = {
         visible: {
             marginBottom: 20,
-            transition: {
+            transition: shouldReduceMotion ? {} : {
                 when: 'beforeChildren',
                 staggerChildren: 0.1,
             },
@@ -34,7 +36,7 @@ export const Menu = (): JSX.Element => {
             height: 29,
         },
         hidden: {
-            opacity: 0,
+            opacity: shouldReduceMotion ? 1 : 0,
             height: 0,
         },
     };
@@ -42,17 +44,25 @@ export const Menu = (): JSX.Element => {
     const openSecondLevel = (secondCategory: string) => {
         setMenu && setMenu(menu.map(m => {
             if(m._id.secondCategory == secondCategory) {
+                setAnnounce(m.isOpened ? 'closed' : 'opened');
                 m.isOpened = !m.isOpened;
             }
             return m;
         }));
     };
 
+    const openSecondLevelKey = (key: KeyboardEvent, secondCategory: string) => {
+        if(key.code == 'Space' || key.code == 'Enter') {
+            key.preventDefault();
+            openSecondLevel(secondCategory);
+        }
+    };
+
     const buildFirstLevel = () => {
         return (
-            <>
+            <ul className={styles.firstLevelList}>
                 {firstLevelMenu.map(m => (
-                    <div key={m.route}>
+                    <li key={m.route} aria-expanded={m.id === firstCategory}>
                         <Link href={`/${m.route}`}>
                             <div className={cn(styles.firstLevel, {
                                 [styles.firstLevelActive]: m.id === firstCategory,
@@ -62,57 +72,67 @@ export const Menu = (): JSX.Element => {
                             </div>
                         </Link>
                         {m.id === firstCategory && buildSecondLevel(m)}
-                    </div>
+                    </li>
                 ))}
-            </>
+            </ul>
         );
     };
 
     const buildSecondLevel = (menuItem: FirstLevelMenuItem) => {
         return (
-            <div className={styles.secondBlock}>
+            <ul className={styles.secondBlock}>
                 {menu.map(m => {
                     if(m.pages.map(p => p.alias).includes(router.asPath.split('/')[2])) {
                         m.isOpened = true;
                     }
                     return (
-                        <div key={m._id.secondCategory}>
-                            <div className={styles.secondLevel} onClick={() => openSecondLevel(m._id.secondCategory)}>
+                        <li key={m._id.secondCategory}>
+                            <button className={styles.secondLevel}
+                                 onKeyDown={(key: KeyboardEvent) => openSecondLevelKey(key, m._id.secondCategory)}
+                                 onClick={() => openSecondLevel(m._id.secondCategory)} 
+                                 aria-expanded={m.isOpened}
+                            >
                                 {m._id.secondCategory}
-                            </div>
-                            <motion.div 
+                            </button>
+                            <motion.ul 
                                 layout
                                 variants={variants}
                                 initial={m.isOpened ? 'visible' : 'hidden'}
                                 animate={m.isOpened ? 'visible' : 'hidden'}
-                                className={cn(styles.secondLevelBlock)}>
-                                {buildThirdLevel(m.pages, menuItem.route)}
-                            </motion.div>
-                        </div>
+                                className={styles.secondLevelBlock}>
+                                {buildThirdLevel(m.pages, menuItem.route, m.isOpened ?? false)}
+                            </motion.ul>
+                        </li>
                     );
                 })}
-            </div>
+            </ul>
         );
     };
 
-    const buildThirdLevel = (pages: PageItem[], route: string) => {
+    const buildThirdLevel = (pages: PageItem[], route: string, isOpened: boolean) => {
         return (
             pages.map(p => (
-                <motion.div  key={p._id} variants={variantsChildren}>
-                    <Link href={`/${route}/${p.alias}`}
+                <motion.li  key={p._id} variants={variantsChildren}>
+                    <Link href={`/${route}/${p.alias}`} 
+                         tabIndex={isOpened ? 0 : -1}
+                         aria-current={`/${route}/${p.alias}` == router.asPath ? 'page' : false} 
                          className={cn(styles.thirdLevel, {
                         [styles.thirdLevelActive]: `/${route}/${p.alias}` === router.asPath,
                     })}>
                         {p.category}
                     </Link>
-                </motion.div>
+                </motion.li>
             ))
         );
     };
 
     return (
-        <div className={styles.menu}>
+        <nav className={styles.menu} role="navigation">
+            {announce && <span className="visualyHidden" role="log">
+                            {announce == 'opened' ? 'opened' : 'closed'}
+                         </span>
+            }
             {buildFirstLevel()}
-        </div>
+        </nav>
     );
 };

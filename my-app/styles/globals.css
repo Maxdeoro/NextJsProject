@@ -12,6 +12,13 @@ a {
   text-decoration: none;
 }
 
+.visualyHidden {
+  width: 0;
+  height: 0;
+  overflow: hidden;
+  position: absolute;
+}
+
 * {
   box-sizing: border-box;
 }
@@ -26,11 +33,11 @@ a {
 :root {
   --black: #3b434e;
   --white: white;
-  --primary: #7653FC;
+  --primary: #7351F5;
   --primary-hover: #4c21f7;
   --red: #FC836D;
   --red-light: #f4b9af;
-	--green: #1DC37E;
+	--green: #267957;
 	--green-light: #C8F8E4;
   --font-family: 'Noto Sans KR', sans-serif;
   --grey-light: #bbb4b4;
