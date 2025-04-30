@@ -3,21 +3,22 @@ import '../styles/globals.css';
 import { JSX, useEffect } from 'react';
 import Head from 'next/head';
 import React from 'react';
-// import ReactGA from 'react-ga4';
+import ReactGA from 'react-ga4';
+import Router from 'next/router';
 
 function MyApp({ Component, pageProps, router }: AppProps): JSX.Element {
 
-  // useEffect(() => {
-  //     ReactGA.initialize('YOUR_TRACKING_ID');
-  //   }, []);
+  useEffect(() => {
+      ReactGA.initialize('YOUR_TRACKING_ID');
+    }, []);
 
-  // router.events.on('routeChangeComplete', (url: string) => {
-  //   if (typeof window !== 'undefined') {
+  Router.events.on('routeChangeComplete', (url: string) => {
+    if (typeof window !== 'undefined') {
       // ReactGA.send('pageview');
       // ReactGA.send({'pageview', url});   // need GA tracking ID
-  //     ReactGA.send({hitType:'pageview', page: url});
-  //   }
-  // })
+      ReactGA.send({hitType:'pageview', page: url});
+    }
+  })
 
   return <>
       <Head>
