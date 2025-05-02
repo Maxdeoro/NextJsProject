@@ -10,11 +10,16 @@ import { ParsedUrlQuery } from "querystring";
 import { firstLevelMenu} from '../../helpers/helpers';
 import { API } from '../../helpers/api';
 import Head from 'next/head';
+import { Error404 } from '../404';
 
 
 function TopPage({firstCategory,page,products}: TopPageProps): JSX.Element {
-    return <>{page && products &&
-            <>
+
+    if(!page || !products) {
+        return <Error404/>;
+    }
+
+    return  <>
                 <Head>
                     <title>{page.metaTitle}</title>
                     <meta name='description' content='metaDescription'/>
@@ -26,8 +31,7 @@ function TopPage({firstCategory,page,products}: TopPageProps): JSX.Element {
                                 page={page} 
                                 products={products}
                 />
-             </>
-           }</>
+            </>
 };
 
 export default withLayout(TopPage);
