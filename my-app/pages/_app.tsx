@@ -14,8 +14,6 @@ function MyApp({ Component, pageProps, router }: AppProps): JSX.Element {
 
   Router.events.on('routeChangeComplete', (url: string) => {
     if (typeof window !== 'undefined') {
-      // ReactGA.send('pageview');
-      // ReactGA.send({'pageview', url});   // need GA tracking ID
       ReactGA.send({hitType:'pageview', page: url});
     }
   })
@@ -25,8 +23,6 @@ function MyApp({ Component, pageProps, router }: AppProps): JSX.Element {
         <title>MyNextApp</title>
         <link rel="icon" href="/favicon.ico" />
         <link rel="preconnect" href="https://fonts.gstatic.com" />
-        <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;400;500;700&display=swap" 
-        rel="stylesheet" />
         <link rel="preconnect" href="https://www.google-analytics.com/"/>
         <meta property='og:url' content={process.env.NEXT_PUBLIC_DOMAIN + router.asPath}/>
         <meta property='og:locale' content='en_EN'/>
