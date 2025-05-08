@@ -1,4 +1,4 @@
-FROM node:22-debian
+FROM node:22
 WORKDIR /opt/app
 ADD package.json package.json
 RUN npm install
