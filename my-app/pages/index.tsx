@@ -1,4 +1,4 @@
-import { JSX, useEffect, useState } from 'react';
+import { JSX, useState } from 'react';
 import { Htag } from '../components/htag/Htag';
 import { Button } from '../components/button/Button';
 import { Paragraf } from '../components/para/Para';

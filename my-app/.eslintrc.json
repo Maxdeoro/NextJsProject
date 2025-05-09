@@ -1,0 +1,29 @@
+{
+    "root": true,
+    "parser": "@typescript-eslint/parser",
+    "parserOptions": {
+      "project": "./tsconfig.json"
+    },
+    "plugins": [
+      "@typescript-eslint",
+      "react-hooks",
+      "@next"
+    ],
+    "rules": {
+      "semi": "off",
+      "@typescript-eslint/semi": "warn",
+      "@typescript-eslint/no-empty-interface": [
+        "error",
+        {
+          "allowSingleExtends": true
+        }
+      ]
+    },
+    "extends": [
+      "plugin:next/recommended",
+      "plugin:react-hooks/recommended",
+      "plugin:@typescript-eslint/recommended",
+      "eslint:recommended",
+      "next/core-web-vitals"
+    ]
+  }
